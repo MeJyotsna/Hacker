@@ -1,0 +1,60 @@
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+}
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  color: #fff;
+  background-color: rgb(255, 102, 0);
+}
+
+.table td,
+.table th {
+  padding: 0.3rem;
+  width: 10%;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+.table tr td:last-child,
+.table tr th:last-child {
+  width: 90%;
+}
+.table tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+  display: block;
+}
+.clearfix::after,
+.clearfix::before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.prevBtn {
+  margin-right: 10px;
+  border-right: 2px solid rgb(255, 102, 0);
+  padding-right: 10px;
+}
+.btn {
+  color: rgb(255, 102, 0);
+  display: inline-block;
+  cursor: pointer;
+}
+.upvotebtn {
+  width: 9%;
+  cursor: pointer;
+}
