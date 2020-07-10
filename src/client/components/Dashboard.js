@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
         });
     }
   };
-  previousPage() {
+  previousPage = () => {
     var endPage = this.state.end > 61 ? this.state.end - 30 : 31;
     var startPage = this.state.start > 31 ? this.state.start - 30 : 1;
     this.setState({
@@ -38,9 +38,9 @@ class Dashboard extends React.Component {
       start: startPage,
     });
     this.fetchNewsFeed(startPage, endPage);
-  }
+  };
 
-  nextPage() {
+  nextPage = () => {
     var endPage = this.state.end + 30;
     var startPage = this.state.start + 30;
     this.setState({
@@ -48,10 +48,10 @@ class Dashboard extends React.Component {
       startPage: start,
     });
     this.fetchNewsFeed(startPage, endPage);
-  }
-  handleUpvote() {
+  };
+  handleUpvote = () => {
     console.log("jksajxhbj");
-  }
+  };
 
   render() {
     console.log("state", this.state.listData);
@@ -84,7 +84,7 @@ class Dashboard extends React.Component {
                     <td>{item.points}</td>
                     <td>
                       <img
-                        onClick={() => handleUpvote}
+                        onClick={this.handleUpvote}
                         className="upvotebtn"
                         src="https://assets.hackbotone.com/images/icons/up_arrow.png"
                         alt="upvote"
@@ -98,10 +98,12 @@ class Dashboard extends React.Component {
         </table>
         <div className="clearfix">
           <div className="float-right">
-            {/* <div className="prevBtn btn" onClick={previousPage}>Previous</div>
-            <div className="nextBtn btn" onClick={nextPage}>
+            <div className="prevBtn btn" onClick={this.previousPage}>
+              Previous
+            </div>
+            <div className="nextBtn btn" onClick={this.nextPage}>
               Next
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

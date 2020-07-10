@@ -1,8 +1,19 @@
 import React from "react";
-import Dashboard from "./components/Dashboard";
+import { Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import HomeComponent from "./Components/Home";
+// import "./App.css";
+
+import store from "./Store";
 
 function App() {
-  return <Dashboard />;
+  return (
+    <Provider store={store}>
+      <Switch>
+        <Route path="/" exact component={HomeComponent} />
+      </Switch>
+    </Provider>
+  );
 }
 
 export default App;

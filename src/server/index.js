@@ -43,5 +43,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, function () {
-  console.log("Server listening");
+  console.log("Server listening to port 3001");
 });
