@@ -19,7 +19,7 @@ pipeline {
 
             steps {
 
-               echo "test"
+               echo "test is doing"
 
             }
 
