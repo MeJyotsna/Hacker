@@ -99,7 +99,7 @@ class Dashboard extends React.Component {
         <div className="clearfix">
           <div className="float-right">
             <div className="prevBtn btn" onClick={this.previousPage}>
-              Previous
+              Previousss
             </div>
             <div className="nextBtn btn" onClick={this.nextPage}>
               Next
