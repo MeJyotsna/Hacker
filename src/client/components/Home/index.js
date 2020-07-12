@@ -4,7 +4,6 @@ import { fetchNewsFeed, setUpVoteCount, hideNewsFeed } from "./actions";
 import { LineChart } from "react-chartkick";
 import "chart.js";
 import * as moment from "moment";
-import "./css/componentStyle.css";
 
 class HomeComponent extends React.Component {
   constructor(props) {

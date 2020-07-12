@@ -1,20 +1,15 @@
-// const express = require("express");
-// const bodyParser = require("body-parser");
 import express from "express";
 import bodyParser from "body-parser";
 import "@babel/polyfill";
-// import webpackHotMiddleware from "webpack-hot-middleware";
-// import webpackConfig from "webpack-hot-middleware";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router";
 import App from "../client/App";
+
 const app = express();
 const port = 3001;
 app.use(bodyParser.json());
-// app.use(express.static);
 app.use(express.static("build/public"));
-
 app.get("*", (req, res) => {
   var title = "";
   const context = {};
@@ -23,7 +18,6 @@ app.get("*", (req, res) => {
       <App />
     </StaticRouter>
   );
-
   const html = `
       <!DOCTYPE html>
       <html>
