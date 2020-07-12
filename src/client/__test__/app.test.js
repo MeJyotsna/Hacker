@@ -1,23 +1,48 @@
 import React from "react";
 import Enzyme, { mount } from "enzyme";
-// const Enzyme = require("enzyme");
-// const mount = require("enzyme/mount");
 import Adapter from "enzyme-adapter-react-16";
-// const Adapter = require("enzyme-adapter-react-16");
-// const HomeComponent = require("../components/Home");
 import { Provider } from "react-redux";
 import "chart.js";
 import store from "../Store";
 import HomeComponent from "../components/Home";
+import { fetchNewsFeed, dispatchNewsFeeds } from "../components/Home/actions";
 
 Enzyme.configure({ adapter: new Adapter() });
-describe("<HomeComponent />", () => {
-  it("should dispatch sample action", () => {
-    const wrapper = mount(
+let wrapper;
+describe("When home component is mounted", () => {
+  beforeEach(() => {
+    wrapper = mount(
       <Provider store={store}>
         <HomeComponent />
       </Provider>
     );
-    expect(wrapper.find("tbody")).toHaveLength(1);
+  });
+  it("should check for table", () => {
+    wrapper = mount(
+      <Provider store={store}>
+        <HomeComponent />
+      </Provider>
+    );
+    expect(wrapper.find("table")).toHaveLength(1);
+  });
+
+  it("should check for snapshot", () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it("should check for dispatchNewsFeeds function to have 'FETCH_NEWS_FEED'", () => {
+    var val = dispatchNewsFeeds({});
+    expect(val.type === "FETCH_NEWS_FEED").toBe(true);
+  });
+
+  it("should check for action has type and payload property", () => {
+    var val = dispatchNewsFeeds({});
+    expect(val).toHaveProperty("type");
+    expect(val).toHaveProperty("payload");
+  });
+
+  it("should check for payload has Id property", () => {
+    var val = dispatchNewsFeeds({ id: 1 });
+    expect(val.payload.id === 1).toBe(true);
   });
 });

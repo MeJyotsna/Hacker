@@ -11,20 +11,19 @@ export const dispatchNewsFeeds = (data) => ({
   type: FETCH_NEWS_FEED,
   payload: data,
 });
-export const fetchNewsFeedTest = async (base, destination) => {
-  try {
-    const result = await fetch(
-      `https://api.exchangeratesapi.io/latest?base=${base}`
-    );
-    const data = await result.json();
-    console.log("------------", data);
-    return data.rates[destination];
-  } catch (e) {
-    return null;
-  }
-};
+// export const fetchNewsFeedTest = async (base, destination) => {
+//   try {
+//     const result = await fetch(
+//       `https://api.exchangeratesapi.io/latest?base=${base}`
+//     );
+//     const data = await result.json();
+//     console.log("------------", data);
+//     return data.rates[destination];
+//   } catch (e) {
+//     return null;
+//   }
+// };
 export const fetchNewsFeed = (start, end) => async (dispatch) => {
-  // console.log("fetchNewsFeed...." + start + " == " + end);
   let feeds = [];
   for (let i = start; i < end; i++) {
     await fetch(BASE_URL + "/items/" + parseInt(i))
