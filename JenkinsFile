@@ -18,7 +18,7 @@ pipeline {
 
             steps {
 
-               echo "test is doing"
+               sh "yarn test"
 
             }
 
