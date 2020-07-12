@@ -18,6 +18,7 @@ class HomeComponent extends React.Component {
     this.props.fetchNewsFeed(this.state.start, this.state.end);
   }
 
+  // to open last page visited
   previousPage() {
     var end = this.state.end > 61 ? this.state.end - 30 : 31;
     var start = this.state.start > 31 ? this.state.start - 30 : 1;
@@ -28,6 +29,7 @@ class HomeComponent extends React.Component {
     this.props.fetchNewsFeed(start, end);
   }
 
+  //to open next page
   nextPage() {
     var end = this.state.end + 30;
     var start = this.state.start + 30;
@@ -38,6 +40,7 @@ class HomeComponent extends React.Component {
     this.props.fetchNewsFeed(start, end);
   }
 
+  //rendering chart with the available page data
   renderChart = (results) => {
     var statistics = [];
     for (var i = 0; i < results.length; i++) {
@@ -50,6 +53,8 @@ class HomeComponent extends React.Component {
       var item = { [id]: votes };
       statistics.push(item);
     }
+
+    //stringifying and data handling as per react-chartkick
     var graph_item = JSON.stringify(statistics);
     graph_item = graph_item.replace(/[{}]/g, "");
     graph_item = graph_item.replace("[", "{");
@@ -57,7 +62,10 @@ class HomeComponent extends React.Component {
     var data = JSON.parse(graph_item);
     return <LineChart data={data} />;
   };
+
+  //open link in new tab
   getUrl(el) {
+    console.log("open url", el);
     if (el != undefined) {
       var ol = el
         .replace("http://", "")
@@ -66,15 +74,15 @@ class HomeComponent extends React.Component {
       return ol;
     }
   }
+
+  //rendering latest vote count as per user events
   renderVoteCount = (item) => {
     var id = item.id;
     var votes;
     var vote = JSON.parse(JSON.stringify(this.props.voteCount)).voteCount;
     if (id == vote.id) {
-      console.log("inside if----------", vote);
       votes = vote.vote_count;
     } else {
-      console.log("inside else----------", vote);
       var storage_item = localStorage.getItem("news_feed" + id);
       var parse_storage_item = JSON.parse(storage_item);
       var voteCount =
@@ -85,15 +93,16 @@ class HomeComponent extends React.Component {
   };
 
   handleUpvote = (item) => {
-    console.log("clicked item", item);
     var id = item.id;
     var title = item.title;
+
     //fetching news feed with clicked news id
     var storageItem = localStorage.getItem("news_feed" + id);
     console.log("selected item from storge", storageItem);
     var parsedStorageItem = JSON.parse(storageItem);
     var parsedStorageTitle = parsedStorageItem.title;
     var parsedStorageVote = parsedStorageItem.vote_count;
+
     //check if the clicked data matches local storage's news feed
     if (title == parsedStorageTitle) {
       var newVoteCount = parseInt(parsedStorageVote) + 1;
@@ -105,12 +114,13 @@ class HomeComponent extends React.Component {
     }
   };
 
+  // to hide the specific news feed
   handleNewsHide = (newsId) => {
     this.props.hideNewsFeed(this.props.newsFeed.newsFeed, newsId);
   };
+
   render() {
-    const listData = JSON.parse(JSON.stringify(this.props.newsFeed.newsFeed));
-    console.log("Dddd", listData);
+    const listData = JSON.parse(JSON.stringify(this.props.newsFeed.newsFeed)); // getting newsfeed data from props
     return (
       <div className="container">
         <table

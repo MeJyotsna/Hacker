@@ -11,18 +11,8 @@ export const dispatchNewsFeeds = (data) => ({
   type: FETCH_NEWS_FEED,
   payload: data,
 });
-// export const fetchNewsFeedTest = async (base, destination) => {
-//   try {
-//     const result = await fetch(
-//       `https://api.exchangeratesapi.io/latest?base=${base}`
-//     );
-//     const data = await result.json();
-//     console.log("------------", data);
-//     return data.rates[destination];
-//   } catch (e) {
-//     return null;
-//   }
-// };
+
+//action to fetch API data
 export const fetchNewsFeed = (start, end) => async (dispatch) => {
   let feeds = [];
   for (let i = start; i < end; i++) {
@@ -31,7 +21,6 @@ export const fetchNewsFeed = (start, end) => async (dispatch) => {
       .then((data) => {
         let results = data;
         if (results.title != null) {
-          console.log("----from actions page api call result", results);
           let title = results.title;
           let id = results.id;
           let author = results.author;
@@ -70,7 +59,7 @@ export const fetchNewsFeed = (start, end) => async (dispatch) => {
             localStorage.setItem(
               NEWS_STORAGE_KEY + id,
               JSON.stringify(news_results)
-            );
+            ); // storing data in local storage with specific news Id
             dispatch(dispatchNewsFeeds(feeds));
           }
         }
@@ -87,10 +76,11 @@ export const dispatchVoteCount = (count) => ({
 });
 
 export const setUpVoteCount = (vote) => (dispatch) => {
-  console.log("Vote : setUpVoteCount Redux = " + JSON.stringify(vote));
+  // console.log("Vote : setUpVoteCount Redux = " + JSON.stringify(vote));
   dispatch(dispatchVoteCount(vote));
 };
 
+//action for hiding specific news feed
 export const hideNewsFeed = (feeds, id) => (dispatch) => {
   if (feeds != null) {
     let parseHide = JSON.parse(JSON.stringify(feeds));

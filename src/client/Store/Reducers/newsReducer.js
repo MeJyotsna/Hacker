@@ -2,10 +2,10 @@ const initialState = {
   newsFeed: "",
 };
 
+//for news feed data
 const newsFeedsReducer = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_NEWS_FEED": {
-      // console.log("frm reducer", action);
       return {
         ...state,
         newsFeed: action.payload,

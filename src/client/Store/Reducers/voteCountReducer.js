@@ -1,18 +1,19 @@
 const initialState = {
-  voteCount: '',
+  voteCount: "",
 };
 
+//for vote count handling
 const voteCountReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'SET_UPVOTE_COUNT': {
-        return {
-          ...state,
-          voteCount: action.payload,
-        }
-      }
-      default:
-        return state;
+  switch (action.type) {
+    case "SET_UPVOTE_COUNT": {
+      return {
+        ...state,
+        voteCount: action.payload,
+      };
     }
-  };
-  
-  export default voteCountReducer;
+    default:
+      return state;
+  }
+};
+
+export default voteCountReducer;
