@@ -13,20 +13,20 @@ pipeline {
 
         }
 
-        stage('Test') {
-
-            steps {
-
-               echo "yarn test"
-            }
-
-        }
-
         stage('Deploy') {
 
             steps {
 
-                echo "yarn start"
+               sh "yarn start"
+            }
+
+        }
+
+        stage('Test') {
+
+            steps {
+
+                echo "yarn test"
 
             }
 
