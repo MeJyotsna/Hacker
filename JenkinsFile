@@ -4,7 +4,7 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Install') {
 
             steps {
 
@@ -17,7 +17,7 @@ pipeline {
 
             steps {
 
-               sh "yarn test"
+               echo "yarn test"
             }
 
         }
@@ -26,7 +26,7 @@ pipeline {
 
             steps {
 
-                sh "yarn start"
+                echo "yarn start"
 
             }
 

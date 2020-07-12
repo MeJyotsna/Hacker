@@ -122,7 +122,6 @@ class HomeComponent extends React.Component {
         >
           <thead>
             <tr>
-              <th>Id</th>
               <th>Comments</th>
               <th>Vote Count</th>
               <th>Upvote</th>
@@ -135,7 +134,6 @@ class HomeComponent extends React.Component {
               listData.map((item) => {
                 return (
                   <tr>
-                    <td>{item.id}</td>
                     <td>{item.comments}</td>
                     <td>{this.renderVoteCount(item)}</td>
                     <td>
