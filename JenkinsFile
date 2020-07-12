@@ -8,8 +8,7 @@ pipeline {
 
             steps {
 
-                sh "yarn test"
-
+                sh "yarn install"
             }
 
         }
@@ -19,7 +18,6 @@ pipeline {
             steps {
 
                sh "yarn start"
-
             }
 
         }
@@ -28,7 +26,7 @@ pipeline {
 
             steps {
 
-                sh "yarn start"
+                sh "yarn test"
 
             }
 
