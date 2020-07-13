@@ -65,7 +65,6 @@ class HomeComponent extends React.Component {
 
   //open link in new tab
   getUrl(el) {
-    console.log("open url", el);
     if (el != undefined) {
       var ol = el
         .replace("http://", "")
@@ -98,7 +97,6 @@ class HomeComponent extends React.Component {
 
     //fetching news feed with clicked news id
     var storageItem = localStorage.getItem("news_feed" + id);
-    console.log("selected item from storge", storageItem);
     var parsedStorageItem = JSON.parse(storageItem);
     var parsedStorageTitle = parsedStorageItem.title;
     var parsedStorageVote = parsedStorageItem.vote_count;
