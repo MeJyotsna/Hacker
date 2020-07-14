@@ -13,21 +13,21 @@ export const dispatchNewsFeeds = (data) => ({
 });
 
 //action to fetch API data
-export const fetchNewsFeed = (start, end) => async (dispatch) => {
+export const fetchNewsFeed = (pageNumber) => async (dispatch) => {
   let feeds = [];
-  for (let i = start; i < end; i++) {
-    await fetch(BASE_URL + "/items/" + parseInt(i))
-      .then((response) => response.json())
-      .then((data) => {
-        let results = data;
-        if (results.title != null) {
-          let title = results.title;
-          let id = results.id;
-          let author = results.author;
-          let url = results.url;
-          let timeStamp = results.created_at_i;
-          let vote_count = results.points;
-          let commentCount = results.children.length;
+  await fetch(BASE_URL + "/search?page=" + pageNumber + "&hitsPerPage=30")
+    .then((response) => response.json())
+    .then((data) => {
+      let results = data.hits;
+      results.map((newsItem) => {
+        if (newsItem.title != null) {
+          let title = newsItem.title;
+          let id = newsItem.objectID;
+          let author = newsItem.author;
+          let url = newsItem.url;
+          let timeStamp = newsItem.created_at_i;
+          let vote_count = newsItem.points;
+          let commentCount = newsItem.num_comments;
           let date = new Date(timeStamp * 1000);
           let posted_time =
             date.getMonth() + "/" + date.getDay() + "/" + date.getFullYear();
@@ -60,14 +60,14 @@ export const fetchNewsFeed = (start, end) => async (dispatch) => {
               NEWS_STORAGE_KEY + id,
               JSON.stringify(news_results)
             ); // storing data in local storage with specific news Id
-            dispatch(dispatchNewsFeeds(feeds));
           }
         }
-      })
-      .catch((error) => {
-        console.log("Error Feed -- " + i + " == " + error);
       });
-  }
+      dispatch(dispatchNewsFeeds(feeds));
+    })
+    .catch((error) => {
+      console.log("Error Feed -- " + i + " == " + error);
+    });
 };
 
 export const dispatchVoteCount = (count) => ({
@@ -76,7 +76,6 @@ export const dispatchVoteCount = (count) => ({
 });
 
 export const setUpVoteCount = (vote) => (dispatch) => {
-  // console.log("Vote : setUpVoteCount Redux = " + JSON.stringify(vote));
   dispatch(dispatchVoteCount(vote));
 };
 

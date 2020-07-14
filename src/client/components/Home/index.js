@@ -9,35 +9,34 @@ class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      start: 1,
-      end: 31,
+      pageNumber: 0,
     };
   }
 
   componentDidMount() {
-    this.props.fetchNewsFeed(this.state.start, this.state.end);
+    this.props.fetchNewsFeed(this.state.pageNumber);
   }
 
   // to open last page visited
   previousPage() {
-    var end = this.state.end > 61 ? this.state.end - 30 : 31;
-    var start = this.state.start > 31 ? this.state.start - 30 : 1;
-    this.setState({
-      end: end,
-      start: start,
-    });
-    this.props.fetchNewsFeed(start, end);
+    let page_number = this.state.pageNumber;
+    if (page_number > 0) {
+      let count = page_number - 1;
+      this.setState({
+        pageNumber: count,
+      });
+      this.props.fetchNewsFeed(count);
+    }
   }
 
   //to open next page
   nextPage() {
-    var end = this.state.end + 30;
-    var start = this.state.start + 30;
+    let page_number = this.state.pageNumber;
+    let count = page_number + 1;
     this.setState({
-      end: end,
-      start: start,
+      pageNumber: count,
     });
-    this.props.fetchNewsFeed(start, end);
+    this.props.fetchNewsFeed(count);
   }
 
   //rendering chart with the available page data
@@ -137,6 +136,11 @@ class HomeComponent extends React.Component {
             </tr>
           </thead>
           <tbody>
+            {listData && listData.length === 0 && (
+              <tr>
+                <td>No Data Found.</td>
+              </tr>
+            )}
             {listData &&
               listData.length > 0 &&
               listData.map((item) => {
