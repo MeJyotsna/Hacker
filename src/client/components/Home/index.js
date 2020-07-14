@@ -41,24 +41,26 @@ class HomeComponent extends React.Component {
 
   //rendering chart with the available page data
   renderChart = (results) => {
-    var statistics = [];
-    for (var i = 0; i < results.length; i++) {
-      var id = results[i].id.toString();
-      var storage_item = localStorage.getItem("news_feed" + id);
-      var parse_storage_item = JSON.parse(storage_item);
-      var vote_count =
+    let statistics = [];
+    let stats = {};
+    for (let i = 0; i < results.length; i++) {
+      let id = results[i].id.toString();
+      let storage_item = localStorage.getItem("news_feed" + id);
+      let parse_storage_item = JSON.parse(storage_item);
+      let vote_count =
         parse_storage_item != null ? parse_storage_item.vote_count : 0;
-      var votes = vote_count;
-      var item = { [id]: votes };
+      let votes = vote_count;
+      let item = { [" " + id]: votes };
+      stats[id] = votes;
       statistics.push(item);
     }
 
     //stringifying and data handling as per react-chartkick
-    var graph_item = JSON.stringify(statistics);
+    let graph_item = JSON.stringify(statistics);
     graph_item = graph_item.replace(/[{}]/g, "");
     graph_item = graph_item.replace("[", "{");
     graph_item = graph_item.replace("]", "}");
-    var data = JSON.parse(graph_item);
+    let data = JSON.parse(graph_item);
     return <LineChart data={data} />;
   };
 
@@ -129,6 +131,7 @@ class HomeComponent extends React.Component {
         >
           <thead>
             <tr>
+              <th>Id</th>
               <th>Comments</th>
               <th>Vote Count</th>
               <th>Upvote</th>
@@ -146,6 +149,7 @@ class HomeComponent extends React.Component {
               listData.map((item) => {
                 return (
                   <tr>
+                    <td>{item.id}</td>
                     <td>{item.comments}</td>
                     <td>{this.renderVoteCount(item)}</td>
                     <td>
